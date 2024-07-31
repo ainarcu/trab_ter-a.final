@@ -6,13 +6,13 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
-app.use(cors()); // Permitir todas as origens
+app.use(cors()); 
 
-// Armazenamento em memória para e-mails e respostas
+
 const emails = [];
 const responses = [];
 
-// Definir pesos para cada afirmação em cada categoria
+
 const weightsMatrix = [
     [2, 3, 4, 1, 5, 3],
     [1, 4, 2, 5, 3, 4],
@@ -31,7 +31,7 @@ const weightsMatrix = [
     [4, 2, 5, 3, 1, 4]
 ];
 
-// Endpoint para registrar e-mail
+
 app.post('/register', (req, res) => {
     const { email } = req.body;
     if (!email) {
@@ -46,7 +46,7 @@ app.post('/register', (req, res) => {
     res.status(201).send('Email registrado com sucesso.');
 });
 
-// Endpoint para enviar respostas
+
 app.post('/submit', (req, res) => {
     const { email, answers } = req.body;
     if (!email || !answers || !Array.isArray(answers) || answers.length !== weightsMatrix.length) {
@@ -61,7 +61,7 @@ app.post('/submit', (req, res) => {
     res.status(201).send('Respostas enviadas com sucesso.');
 });
 
-// Endpoint para calcular resultados
+
 app.post('/results', (req, res) => {
     const { email } = req.body;
     if (!email) {
@@ -83,27 +83,26 @@ app.post('/results', (req, res) => {
 
     const scores = Array(numCategories).fill(0);
     
-    // Calcular pontuações com base nos pesos e respostas
+
     userResponses.answers.forEach((answer, index) => {
         weightsMatrix[index].forEach((weight, categoryIndex) => {
             scores[categoryIndex] += answer * weight;
         });
     });
 
-    // Garantir que as pontuações estejam dentro dos limites mínimo e máximo
+
     const maxPossibleScore = numQuestions * Math.max(...weightsMatrix.flat());
     const scaledScores = scores.map(score => {
         const proportion = (score / maxPossibleScore);
         return Math.max(minScore, Math.min(maxScore, Math.round(proportion * (maxScore - minScore) + minScore)));
     });
 
-    // Combinar categorias com pontuações e ordenar por pontuação
+
     const results = categories.map((category, index) => ({
         category,
         score: scaledScores[index]
     })).sort((a, b) => b.score - a.score);
 
-    // Obter as 2 melhores categorias
     const topResults = results.slice(0, 2);
 
     res.status(200).json(topResults);

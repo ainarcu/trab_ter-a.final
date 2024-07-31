@@ -1,4 +1,4 @@
-/* Resetting default browser styles */
+
 * {
     margin: 0;
     padding: 0;
@@ -30,7 +30,7 @@ body {
 h1 {
     margin-bottom: 20px;
     font-size: 28px;
-    color: #4a148c; /* Deep Purple */
+    color: #4a148c;
 }
 
 form {
@@ -58,7 +58,7 @@ input[type="range"] {
 
 input[type="email"]:focus,
 input[type="range"]:focus {
-    border-color: #6f42c1; /* Purple */
+    border-color: #6f42c1; 
     outline: none;
     box-shadow: 0 0 4px rgba(111, 61, 215, 0.3);
 }
@@ -75,7 +75,7 @@ input[type="range"]::-webkit-slider-thumb {
     -webkit-appearance: none;
     width: 24px;
     height: 24px;
-    background: #6f42c1; /* Purple */
+    background: #6f42c1; 
     border-radius: 50%;
     cursor: pointer;
 }
@@ -83,7 +83,7 @@ input[type="range"]::-webkit-slider-thumb {
 input[type="range"]::-moz-range-thumb {
     width: 24px;
     height: 24px;
-    background: #6f42c1; /* Purple */
+    background: #6f42c1;
     border-radius: 50%;
     cursor: pointer;
 }
@@ -91,7 +91,7 @@ input[type="range"]::-moz-range-thumb {
 button {
     margin-top: 20px;
     padding: 12px;
-    background-color: #6f42c1; /* Purple */
+    background-color: #6f42c1;
     color: white;
     border: none;
     border-radius: 8px;
@@ -101,7 +101,7 @@ button {
 }
 
 button:hover {
-    background-color: #5a32a3; /* Darker Purple */
+    background-color: #5a32a3;
 }
 
 button:active {
@@ -124,7 +124,7 @@ button:active {
 
 #results p {
     font-size: 18px;
-    color: #4a148c; /* Deep Purple */
+    color: #4a148c;
 }
 
 #ideal-course {
