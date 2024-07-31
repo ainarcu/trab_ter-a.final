@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste Vocacional</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Teste Vocacional</h1>
+        <form id="testForm">
+            <div class="affirmations">
+                <div class="affirmation">
+                    <label for="affirmation1">Eu gosto de trabalhar em equipe.</label>
+                    <input type="range" id="affirmation1" name="affirmation1" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation2">Eu prefiro trabalhar sozinho.</label>
+                    <input type="range" id="affirmation2" name="affirmation2" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation3">Eu gosto de resolver problemas complexos.</label>
+                    <input type="range" id="affirmation3" name="affirmation3" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation4">Eu gosto de ajudar os outros.</label>
+                    <input type="range" id="affirmation4" name="affirmation4" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation5">Eu me interesso por atividades criativas.</label>
+                    <input type="range" id="affirmation5" name="affirmation5" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation6">Eu gosto de aprender sobre novas tecnologias.</label>
+                    <input type="range" id="affirmation6" name="affirmation6" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation7">Eu me sinto confortável em situações de liderança.</label>
+                    <input type="range" id="affirmation7" name="affirmation7" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation8">Eu gosto de planejar e organizar eventos.</label>
+                    <input type="range" id="affirmation8" name="affirmation8" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation9">Eu tenho interesse em ciências e experimentos.</label>
+                    <input type="range" id="affirmation9" name="affirmation9" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation10">Eu gosto de atividades físicas e esportivas.</label>
+                    <input type="range" id="affirmation10" name="affirmation10" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation11">Eu me interesso por cuidar de plantas e animais.</label>
+                    <input type="range" id="affirmation11" name="affirmation11" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation12">Eu gosto de desenhar e pintar.</label>
+                    <input type="range" id="affirmation12" name="affirmation12" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation13">Eu tenho interesse em finanças e economia.</label>
+                    <input type="range" id="affirmation13" name="affirmation13" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation14">Eu gosto de trabalhar com crianças.</label>
+                    <input type="range" id="affirmation14" name="affirmation14" min="1" max="5">
+                </div>
+                <div class="affirmation">
+                    <label for="affirmation15">Eu gosto de escrever e contar histórias.</label>
+                    <input type="range" id="affirmation15" name="affirmation15" min="1" max="5">
+                </div>
+            </div>
+            <button type="submit">Enviar</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('testForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const email = localStorage.getItem('email');
+            if (!email) {
+                alert('Por favor, faça o login antes de iniciar o teste.');
+                window.location.href = 'register.html';
+                return;
+            }
+
+            const answers = Array.from(document.querySelectorAll('input[type="range"]'))
+                                  .map(input => parseInt(input.value, 10));
+
+            if (answers.length !== 15 || answers.some(isNaN)) {
+                alert('Por favor, preencha todas as respostas corretamente.');
+                return;
+            }
+
+            fetch('http://localhost:3000/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email, answers })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(error => { throw new Error(error.message); });
+                }
+                window.location.href = 'resultados.html';
+            })
+            .catch(error => {
+                console.error('Erro ao enviar respostas:', error);
+                alert('Houve um erro ao enviar as respostas. Por favor, tente novamente.');
+            });
+        });
+    </script>
+</body>
+</html>

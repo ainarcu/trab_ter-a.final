@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resultados</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Resultados do Teste Vocacional</h1>
+        <div id="results">
+            <!-- Os resultados serão exibidos aqui -->
+        </div>
+        <div id="ideal-course">
+            <!-- O curso ideal será exibido aqui -->
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const email = localStorage.getItem('email');
+            if (!email) {
+                alert('Sessão expirada ou email não encontrado. Por favor, faça login novamente.');
+                window.location.href = 'register.html';
+                return;
+            }
+
+            fetch('http://localhost:3000/results', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    return response.json().then(error => { throw new Error(error.message); });
+                }
+                return response.json();
+            })
+            .then(data => {
+                const resultsDiv = document.getElementById('results');
+                const idealCourseDiv = document.getElementById('ideal-course');
+
+                if (data.length > 0) {
+                    const resultItems = data.map(result => `<p>${result.category}: ${result.score}</p>`).join('');
+                    resultsDiv.innerHTML = resultItems;
+
+                    // Encontrar o curso com a maior pontuação
+                    const topCategory = data[0].category; // A primeira posição após ordenação decrescente é a de maior pontuação
+                    idealCourseDiv.innerHTML = `<p>Seu curso ideal é: <strong>${topCategory}</strong></p>`;
+                } else {
+                    resultsDiv.innerHTML = '<p>Erro ao obter resultados. Tente novamente.</p>';
+                }
+            })
+            .catch(error => {
+                console.error('Erro ao obter resultados:', error);
+                document.getElementById('results').innerHTML = '<p>Erro ao obter resultados.</p>';
+            });
+        });
+    </script>
+</body>
+</html>

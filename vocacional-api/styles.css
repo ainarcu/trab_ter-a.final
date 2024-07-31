@@ -1,0 +1,140 @@
+/* Resetting default browser styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f4f4;
+    color: #333;
+    line-height: 1.6;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+}
+
+.container {
+    width: 100%;
+    max-width: 600px;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+h1 {
+    margin-bottom: 20px;
+    font-size: 28px;
+    color: #4a148c; /* Deep Purple */
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+label {
+    margin-top: 15px;
+    color: #666;
+    text-align: left;
+    font-weight: 600;
+}
+
+input[type="email"],
+input[type="range"] {
+    margin: 10px 0;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    width: 100%;
+    font-size: 16px;
+}
+
+input[type="email"]:focus,
+input[type="range"]:focus {
+    border-color: #6f42c1; /* Purple */
+    outline: none;
+    box-shadow: 0 0 4px rgba(111, 61, 215, 0.3);
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    background: #f4f4f4;
+    height: 8px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 24px;
+    height: 24px;
+    background: #6f42c1; /* Purple */
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 24px;
+    height: 24px;
+    background: #6f42c1; /* Purple */
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px;
+    background-color: #6f42c1; /* Purple */
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+button:hover {
+    background-color: #5a32a3; /* Darker Purple */
+}
+
+button:active {
+    transform: scale(0.98);
+}
+
+.affirmations {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.affirmation {
+    margin-bottom: 20px;
+}
+
+#results {
+    margin-top: 20px;
+    text-align: center;
+}
+
+#results p {
+    font-size: 18px;
+    color: #4a148c; /* Deep Purple */
+}
+
+#ideal-course {
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    background: var(--accent-color);
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px var(--shadow-color);
+}

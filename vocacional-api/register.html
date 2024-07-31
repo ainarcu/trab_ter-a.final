@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registro/Login</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Registro/Login</h1>
+        <form id="registerForm">
+            <label for="email">Digite seu e-mail:</label>
+            <input type="email" id="email" required placeholder="seuemail@example.com">
+            <button type="submit">Registrar</button>
+        </form>
+    </div>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            const emailInput = document.getElementById('email');
+            const email = emailInput.value.trim();
+
+            if (!email || !validateEmail(email)) {
+                emailInput.focus();
+                alert('Por favor, insira um e-mail válido.');
+                return;
+            }
+
+            fetch('http://localhost:3000/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ email })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao registrar email.');
+                }
+                localStorage.setItem('email', email);
+                window.location.href = 'teste.html';
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        });
+
+        function validateEmail(email) {
+            const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+    </script>
+</body>
+</html>
